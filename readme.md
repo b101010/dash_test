@@ -1,7 +1,11 @@
-1. pip install -r requirements.txt
+0. python3 -m venv env
 
-2. python3 manage.py makemigrations
+1. source env/bin/activate
 
-3. python3 manage.py migrate
+2. pip install -r requirements.txt
 
-4. python3 manage.py runserver
+3. python3 manage.py makemigrations
+
+4. python3 manage.py migrate
+
+5. python3 manage.py runserver
