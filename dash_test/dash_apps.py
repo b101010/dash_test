@@ -1,5 +1,5 @@
 import dash
-from dash import dcc, html
+from dash import Dash, dcc, html, Input, Output
 
 from django_plotly_dash import DjangoDash
 
@@ -34,3 +34,50 @@ def callback_color(dropdown_value):
      dash.dependencies.Input('dropdown-size', 'value')])
 def callback_size(dropdown_color, dropdown_size):
     return "The chosen T-shirt is a %s %s one." %(dropdown_size, dropdown_color)
+
+##############################################################################################
+
+app1 = DjangoDash('AnotherSimpleExample')
+
+app1.layout = html.Div([
+    html.H6("Change the value in the text box to see callbacks in action!"),
+    html.Div([
+        "Input: ",
+        dcc.Input(id='my-input', value='initial value', type='text')
+    ]),
+    html.Br(),
+    html.Div(id='my-output'),
+
+])
+
+
+@app1.callback(
+    Output(component_id='my-output', component_property='children'),
+    Input(component_id='my-input', component_property='value')
+)
+def update_output_div(input_value):
+    return f'Output: {input_value}'
+
+##############################################################################################
+
+
+app2 = DjangoDash('FormExample')
+
+app2.layout = html.Div(children=[
+    html.H1('Contact Form'),
+    dcc.Input(
+        placeholder='Enter your name',
+        type='text',
+        value=''
+    ),
+    dcc.Input(
+        placeholder='Enter your email',
+        type='email',
+        value=''
+    ),
+    dcc.Textarea(
+        placeholder='Enter your message',
+        value=''
+    ),
+    html.Button('Submit', id='submit-button', n_clicks=0)
+])
